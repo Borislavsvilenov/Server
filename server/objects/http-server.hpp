@@ -5,6 +5,8 @@
 #include <string>
 #include <cstring>
 #include <unistd.h>
+#include <arpa/inet.h>
+#include <cerrno>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>

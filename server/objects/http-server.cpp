@@ -1,6 +1,5 @@
 #include "http-server.hpp"
 
-
 HttpServer::HttpServer(int port)
 {
   socket_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -69,7 +68,7 @@ void HttpServer::read_Clients()
 std::string HttpServer::read_from_client(int client_fd)
 {
   char buffer[1024];
-  int bytes_read = read(client_fd, buffer, 1024);
+  int bytes_read = recv(client_fd, buffer, 1024, 0);
   if (bytes_read == -1)
   {
     std::cerr << "Error reading from client" << std::endl;
@@ -79,10 +78,11 @@ std::string HttpServer::read_from_client(int client_fd)
     close_client(client_fd);
     std::cout << "Client disconnected" << std::endl;
   }
+  std::cout << "Client sent: " << buffer << std::endl;
   return std::string(buffer, bytes_read);
 }
 
 void HttpServer::write_to_client(int client_fd, std::string message)
 {
-  write(client_fd, message.c_str(), message.size());
+  send(client_fd, message.c_str(), message.size(), 0);
 }
