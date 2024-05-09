@@ -9,7 +9,8 @@ include(CTest)
 enable_testing()
 
 add_executable(http-server main.cpp
-  )
+  objects/http-server.cpp
+  objects/http-server.hpp)
 
 
 target_link_libraries(http-server PRIVATE raylib)
